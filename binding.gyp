@@ -14,6 +14,9 @@
           "sources": [
             "src/keyboard-layout-manager-mac.mm",
           ],
+          'xcode_settings': {
+            'CLANG_CXX_LANGUAGE_STANDARD': 'c++17',
+          },
           "link_settings": {
             "libraries": [
               "-framework", "AppKit"
@@ -46,6 +49,9 @@
         ['OS=="linux"', {
           "sources": [
             "src/keyboard-layout-manager-linux.cc",
+          ],
+          'cflags_cc!': [
+            '-std=gnu++14'
           ],
           "link_settings": {
             "libraries": [
