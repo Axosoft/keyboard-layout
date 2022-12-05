@@ -17,20 +17,23 @@ class KeyboardLayoutManager : public Nan::ObjectWrap {
   static NAN_METHOD(GetInstalledKeyboardLanguages);
   static NAN_METHOD(GetCurrentKeymap);
 
+  void freeResources();
  private:
-  KeyboardLayoutManager(v8::Isolate* isolate, Nan::Callback *callback);
+  KeyboardLayoutManager(v8::Isolate* isolate, Nan::Callback *_callback);
   ~KeyboardLayoutManager();
 
   v8::Isolate* isolate() { return isolate_; }
 
+  v8::Isolate *isolate_;
+
+  Nan::Callback *callback;
 #if defined(__linux__) || defined(__FreeBSD__)
   Display *xDisplay;
   XIC xInputContext;
   XIM xInputMethod;
 #endif
 
-  v8::Isolate *isolate_;
-  Nan::Callback *callback;
+  bool cleanExecuted;
 };
 
 #endif  // SRC_KEYBORD_LAYOUT_OBSERVER_H_

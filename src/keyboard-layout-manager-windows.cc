@@ -40,10 +40,12 @@ HKL GetForegroundWindowHKL() {
   return GetKeyboardLayout(dwThreadId);
 }
 
-KeyboardLayoutManager::KeyboardLayoutManager(v8::Isolate *isolate, Nan::Callback *callback) : isolate_(isolate), callback(callback) {}
+KeyboardLayoutManager::KeyboardLayoutManager(v8::Isolate *isolate, Nan::Callback *_callback) : isolate_(isolate), callback(_callback) {
+  delete callback;
+  callback = nullptr;
+}
 
 KeyboardLayoutManager::~KeyboardLayoutManager() {
-  delete callback;
 };
 
 void KeyboardLayoutManager::HandleKeyboardLayoutChanged() {
